@@ -6,7 +6,9 @@ const copyButton = document.getElementById('copyButton');
 // Update formatted JSON on input
 rawJson.addEventListener('input', function () {
     try {
-        const jsonObj = JSON.parse(rawJson.value);
+        // Remove backslashes from the input string before parsing
+        const cleanedInput = rawJson.value.replace(/\\/g, '');
+        const jsonObj = JSON.parse(cleanedInput);
         prettyJson.textContent = JSON.stringify(jsonObj, null, 2);
     } catch (e) {
         prettyJson.textContent = 'Invalid JSON: ' + e.message;
