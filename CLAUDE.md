@@ -47,11 +47,46 @@ docker build -t json-formatter .
 docker run -p 8080:8080 json-formatter
 ```
 
+## CI/CD and Deployment
+
+### Automatic Docker Hub Deployment
+
+The project uses GitHub Actions to automatically build and push Docker images to Docker Hub:
+
+- **Trigger**: Push to `main` branch (after PR merge)
+- **Docker Hub repository**: `freelyit/json-formatter:latest`
+- **Workflow file**: `.github/workflows/docker-build-push.yml`
+
+**Workflow steps**:
+1. Build and test .NET project
+2. Build Docker image using multi-stage Dockerfile
+3. Push to Docker Hub with `latest` tag
+4. Uses layer caching for faster subsequent builds
+
+**Required GitHub Secrets** (configured in repository settings):
+- `DOCKERHUB_USERNAME` - Docker Hub username
+- `DOCKERHUB_TOKEN` - Docker Hub Personal Access Token (not password)
+
+See `DEPLOYMENT.md` for detailed setup instructions and troubleshooting.
+
+### Docker Image Usage
+
+```bash
+# Pull latest image from Docker Hub
+docker pull freelyit/json-formatter:latest
+
+# Run container
+docker run -p 8080:8080 freelyit/json-formatter:latest
+```
+
 ## Project Structure
 
 - **json-formatter.csproj**: .NET 10.0 web project with implicit usings and nullable reference types enabled
 - **Dockerfile**: Multi-stage build using .NET 10.0 SDK and ASP.NET runtime, exposes port 8080
+- **.dockerignore**: Optimizes Docker build context by excluding unnecessary files
 - **appsettings.json**: Standard ASP.NET Core configuration (logging only)
+- **.github/workflows/docker-build-push.yml**: GitHub Actions workflow for automated Docker Hub deployment
+- **DEPLOYMENT.md**: Comprehensive guide for Docker Hub integration and troubleshooting
 
 ## Important Implementation Details
 
