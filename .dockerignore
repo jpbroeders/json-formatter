@@ -45,3 +45,10 @@ yarn-error.log
 
 # Claude Code
 .claude/
+
+# Published output
+publish/
+
+# Solution and project files not needed in container
+*.sln
+Properties/

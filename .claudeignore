@@ -1,0 +1,37 @@
+# Build artifacts
+bin/
+obj/
+publish/
+
+# IDE and editor files
+.vs/
+.vscode/
+.idea/
+*.user
+*.suo
+
+# Dependencies
+node_modules/
+
+# Test results
+TestResults/
+coverage/
+
+# Environment secrets
+*.env
+.env.*
+
+# Docker artifacts (niet relevant voor code review)
+Dockerfile
+.dockerignore
+
+# Git internals
+.git/
+
+# Compiled assets
+*.dll
+*.pdb
+*.exe
+
+# Logs
+*.log
